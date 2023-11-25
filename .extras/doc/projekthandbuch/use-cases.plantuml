@@ -21,17 +21,16 @@ actor Gast
 actor Admin
 actor Kunde
 
-rectangle buch {
-    Gast --> (Buch suchen)
-    Admin --> (Buch suchen)
-    Admin --> (Buch anlegen)
-    Admin --> (Buch ändern)
-    Admin --> (Buch löschen)
-    Kunde --> (Buch suchen)
-    Kunde --> (Buch anlegen)
-    Kunde --> (Buch ändern)
+rectangle cd {
+    Gast --> (CD suchen)
+    Admin --> (CD suchen)
+    Admin --> (CD anlegen)
+    Admin --> (CD ändern)
+    Kunde --> (CD suchen)
+    Kunde --> (CD anlegen)
+    Kunde --> (CD ändern)
 }
 
-footer (c) Jürgen Zimmermann
+footer (c) Lukas Merkle
 
 @enduml

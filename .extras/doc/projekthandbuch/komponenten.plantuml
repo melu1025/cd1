@@ -25,12 +25,12 @@ actor GraphQLClient
 node "Nest" {
   [RequestLoggerMiddleware]
 
-  [BuchController]
-  [BuchResolver]
+  [CDController]
+  [CDResolver]
 
-  [BuchService]
+  [CDService]
 
-  [Repository<Buch>]
+  [Repository<CD>]
 
   [MailService]
 }
@@ -44,8 +44,8 @@ cloud {
     [nodemailer]
 }
 
-database "DB buch" {
-    [Tabelle buch]
+database "DB cd" {
+    [Tabelle cd]
     [Tabelle titel]
     [Tabelle abbildung]
 }
@@ -57,22 +57,21 @@ node {
 RESTClient ~~> [RequestLoggerMiddleware]
 GraphQLClient ~~> [RequestLoggerMiddleware]
 
-[RequestLoggerMiddleware] ~~> [BuchController]
-[RequestLoggerMiddleware] ~~> [BuchResolver]
+[RequestLoggerMiddleware] ~~> [CDController]
+[RequestLoggerMiddleware] ~~> [CDResolver]
 
-[BuchController] ..> [BuchService]
-[BuchResolver] ..> [BuchService]
-[BuchService] ..> [Repository<Buch>]
+[CDController] ..> [CDService]
+[CDResolver] ..> [CDService]
+[CDService] ..> [Repository<CD>]
 
-[Repository<Buch>] ~~> [TypeORM]
-[TypeORM] ~~> [Tabelle buch]
-[TypeORM] ~~> [Tabelle titel]
-[TypeORM] ~~> [Tabelle abbildung]
+[Repository<CD>] ~~> [TypeORM]
+[TypeORM] ~~> [Tabelle cd]
+[TypeORM] ~~> [Tabelle lied]
 
-[BuchService] ..> [MailService]
+[CDService] ..> [MailService]
 [MailService] ~~> [nodemailer]
 [nodemailer] ~~> [Mailserver]
 
-footer (c) Jürgen Zimmermann
+footer (c) Lukas Merkle
 
 @enduml

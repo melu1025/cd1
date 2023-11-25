@@ -1,22 +1,7 @@
-// Copyright (C) 2019 - present Juergen Zimmermann, Hochschule Karlsruhe
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 // Preview durch <Strg><Shift>v
 
 = Projekthandbuch
-Jürgen Zimmermann <Juergen.Zimmermann@h-ka.de>
+Lukas Merkle 
 :doctype: book
 :toc: left
 :sectanchors:
@@ -66,10 +51,10 @@ ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
 cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit
 amet ligula.
 
-."BuchGetController" für Lesezugriffe an der REST-Schnittstelle
-[plantuml,BuchGetController,svg]
+."CDGetController" für Lesezugriffe an der REST-Schnittstelle
+[plantuml,CDGetController,svg]
 ----
-include::BuchGetController.plantuml[]
+include::CDGetController.plantuml[]
 ----
 
 Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec
@@ -84,48 +69,48 @@ include::sequenzdiagramm.plantuml[]
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
 tempor invidunt ut.
 
-."BuchWriteController" für Schreibzugriffe an der REST-Schnittstelle
-[plantuml,BuchGetController,svg]
+."CDWriteController" für Schreibzugriffe an der REST-Schnittstelle
+[plantuml,CDGetController,svg]
 ----
-include::BuchWriteController.plantuml[]
+include::CDWriteController.plantuml[]
 ----
 
 === Die GraphQL-Schnittstelle
 
 Donec sollicitudin molestie malesuada. Donec rutrum congue leo eget malesuada.
 
-.BuchQueryResolver für Lesezugriffe an der GraphQL-Schnittstelle
-[plantuml,BuchQueryResolver,svg]
+.CDQueryResolver für Lesezugriffe an der GraphQL-Schnittstelle
+[plantuml,CDQueryResolver,svg]
 ----
-include::BuchQueryResolver.plantuml[]
+include::CDQueryResolver.plantuml[]
 ----
 
 Donec sollicitudin molestie malesuada. Praesent sapien massa, convallis a
 pellentesque nec, egestas non nisi.
 
-.BuchMutationResolver für Schreibzugriffe an der GraphQL-Schnittstelle
-[plantuml,BuchMutationResolver,svg]
+.CDMutationResolver für Schreibzugriffe an der GraphQL-Schnittstelle
+[plantuml,CDMutationResolver,svg]
 ----
-include::BuchMutationResolver.plantuml[]
+include::CDMutationResolver.plantuml[]
 ----
 
 === Die Geschäftslogik
 
 Donec rutrum congue leo eget malesuada. Donec rutrum congue leo eget malesuada.
 
-."BuchReadService" von der Geschäftslogik
-[plantuml,BuchReadService,svg]
+."CDReadService" von der Geschäftslogik
+[plantuml,CDReadService,svg]
 ----
-include::BuchReadService.plantuml[]
+include::CDReadService.plantuml[]
 ----
 
 Pellentesque in ipsum id orci porta dapibus. Donec rutrum congue leo eget
 malesuada.
 
-."BuchWriteService" von der Geschäftslogik
-[plantuml,BuchWriteService,svg]
+."CDWriteService" von der Geschäftslogik
+[plantuml,CDWriteService,svg]
 ----
-include::BuchWriteService.plantuml[]
+include::CDWriteService.plantuml[]
 ----
 
 === Klasse für Entities
@@ -134,9 +119,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur arcu erat,
 accumsan id imperdiet et, porttitor at sem.
 
 .Entity
-[plantuml,Buch,svg]
+[plantuml,CD,svg]
 ----
-include::Buch.plantuml[]
+include::CD.plantuml[]
 ----
 
 === ER-Diagramm

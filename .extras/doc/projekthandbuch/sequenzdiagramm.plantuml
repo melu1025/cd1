@@ -19,14 +19,14 @@
 
 actor Gast
 
-boundary BuchGetController
-control BuchReadService
-database buch
+boundary CDGetController
+control CDReadService
+database cd
 
-Gast -> BuchGetController : GET / getById()
-BuchGetController -> BuchReadService: findById()
-BuchReadService -> buch: [TypeORM]
+Gast -> CDGetController : GET / getById()
+CDGetController -> CDReadService: findById()
+CDReadService -> cd: [TypeORM]
 
-footer (c) Jürgen Zimmermann
+footer (c) Lukas Merkle
 
 @enduml
