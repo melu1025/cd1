@@ -1,0 +1,116 @@
+# Copyright (C) 2021 - present Juergen Zimmermann, Hochschule Karlsruhe
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+# siehe app.module.ts
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+"Funktionen, um Bücherdaten zu lesen"
+type Query {
+  cds(titel: String): [CD!]
+
+  cd(id: ID!): CD
+}
+
+"Funktionen, um Bücher neu anzulegen, zu aktualisieren oder zu löschen"
+type Mutation {
+  create(input: CDInput!): CreatePayload
+
+  update(input: CDUpdateInput!): UpdatePayload
+
+  delete(id: ID!): Boolean
+
+  # Mutation, weil z.B. der Login-Zeitpunkt im IDM-System gespeichert wird
+  login(username: String!, password: String!): LoginResult
+}
+
+"Daten zum Titel eines CDes"
+type Lied {
+  liedTitel: String!
+  liedLaenge: String
+}
+
+"Datenschema zu einem CD, das gelesen wird"
+type CD {
+  # ID ist bei Apollo ein String
+  id: Int!
+  version: Int!
+  isrc: String!
+  bewertung: Int
+  genre: Art
+  preis: Float!
+  verfuegbar: Boolean
+  erscheinungsdatum: String
+  titel: String
+  interpret: String
+}
+
+"Enum-Typ für die Art eines CDes"
+enum Art {
+  HIPHOP
+  POP
+}
+
+"Daten zu den Abbildungen eines CDes"
+input LiedInput {
+  liedTitel: String!
+  liedLaenge: String!
+}
+
+"Daten für ein neues CD"
+input CDInput {
+  isrc: String
+  bewertung: Int
+  titel: String
+  genre: Art
+  preis: Float
+  verfuegbar: Boolean
+  erscheinungsdatum: String
+  interpret: String
+  laenge: Float
+  lieder: [LiedInput!]
+}
+
+type CreatePayload {
+  id: Int
+}
+
+"Daten für ein zu änderndes CD"
+input CDUpdateInput {
+  id: ID
+  version: Int
+  isrc: String
+  titel: String
+  bewertung: Int
+  genre: Art
+  preis: Float
+  interpret: String
+  verfuegbar: Boolean
+  erscheinungsdatum: String
+  laenge: Float
+}
+
+type UpdatePayload {
+  version: Int
+}
+
+type LoginResult {
+  token: String!
+  expiresIn: String!
+  roles: [String]!
+}

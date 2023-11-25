@@ -1,0 +1,70 @@
+@startuml Anwendungskern
+
+interface Promise<T>
+
+package @nestjs/common {
+  class "@Injectable" as Injectable
+  hide Injectable circle
+}
+
+package typeorm {
+  class Repository<T>
+}
+
+package @nestjs/typeorm {
+  class "@InjectRepository" as InjectRepository
+  hide InjectRepository circle
+}
+
+package mail {
+  class MailService
+}
+
+package cd {
+  package entity {
+    class CD
+  }
+
+  package service #DDDDDD {
+    class CDInvalid
+    class TitelExists
+    class IsbnExists
+    class VersionInvalid
+    class VersionOutdated
+
+    class CDWriteService << control >> <<@Injectable()>> {
+      + async create(cd: CD): Promise<string|CDInvalid|TitelExists|IsbnExists>
+      + async update(id: number, cd: CD, version: string): Promise<number|CDInvalid|TitelExists|IsbnExists|VersionInvalid|VersionOutdated>
+    }
+
+    CDWriteService o--> "1" CDValidationService: validationService
+    CDWriteService o--> "1" CDReadService: readService
+    CDWriteService o--> "1" Repository: @InjectRepository repo
+    CDWriteService o--> "1" MailService: mailService
+
+    CDWriteService .up.> Injectable
+    CDWriteService .up.> InjectRepository
+
+    CDWriteService .up.> Promise
+    CDWriteService ..> CD
+    CDWriteService .up.> CDInvalid
+    CDWriteService .up.> TitelExists
+    CDWriteService .up.> IscrExists
+    CDWriteService .up.> VersionInvalid
+    CDWriteService .up.> VersionOutdated
+
+    CDInvalid .up[hidden].> CD
+    CD .up[hidden].> Promise
+    CD .up[hidden].> Injectable
+    CD .up[hidden].> InjectRepository
+    TitelExists .up[hidden].> CD
+    CDValidationService .[hidden].> Repository
+    CDValidationService .[hidden].> MailService
+  }
+}
+
+hide empty members
+
+footer (c) Jürgen Zimmermann
+
+@enduml
