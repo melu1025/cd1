@@ -184,10 +184,10 @@ pipeline {
                   //]
 
                   publishHTML (target : [
-                      reportDir: '.extras/doc/projekthandcd/html',
-                      reportFiles: 'projekthandcd.html',
-                      reportName: 'Projekthandcd',
-                      reportTitles: 'Projekthandcd'
+                      reportDir: '.extras/doc/projekthandbuch/html',
+                      reportFiles: 'projekthandbuch.html',
+                      reportName: 'Projekthandbuch',
+                      reportTitles: 'Projekthandbuch'
                   ])
 
                   publishHTML target : [
