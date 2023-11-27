@@ -1,5 +1,5 @@
 /**
- * Der Controller für das Lesen mit REST.
+ * Controller-Klasse Leseoperationen in REST.
  * @packageDocumentation
  */
 
@@ -74,7 +74,7 @@ export interface CdsModel {
 }
 
 /**
- * Klasse für den`CdGetController`, um Queries zu erzeugen.
+ * Klasse für den`CdGetController`, zum Erzeugen von Queries.
  */
 export class CdQuery implements Suchkriterien {
     @ApiProperty({ required: false })
@@ -108,7 +108,7 @@ export class CdQuery implements Suchkriterien {
 const APPLICATION_HAL_JSON = 'application/hal+json';
 
 /**
- * Die Controller-Klasse für die Suche.
+ * Controller-Klasse für die Suche.
  */
 @Controller(paths.rest)
 @UseInterceptors(ResponseTimeInterceptor)
@@ -123,16 +123,14 @@ export class CDGetController {
     }
 
     /**
-     * Eine Cd wird mit ihrer ID als Pfadparameter gesucht. Die Suche wird
-     * dabei asynchron ausgeführt.
-     * Wenn es die gesuchte Cd gibt und im Request-Header `If-None-Match` im
-     * Request-Header auf die aktuelle Version der Cd gesetzt ist, wir der
-     * Statuscode 304 zurückgeschickt.
-     * Sofern `If-None-Match` nicht gesetzt ist oder eine veraltete Version
-     * enthält, wird die gefundene Cd im Rumpf des Response als JSON-Datensatz
-     * mit Atom-Links für HATEOAS und dem Statuscode `200` (`OK`) zurückgeliefert.
-     * Wenn keine Cd zu der ID gefundenen wird bzw. existiert, dann wird der
-     * Statuscode 404 zurückgeschickt.
+     * Eine Cd wird anhand ihrer ID als Pfadparameter asynchron gesucht.
+     * Eine gefundene CD wird im Body der Response als JSON-Datensatz
+     * mit Atom-Links zurueckgeliefert.
+     * Statuscode 304 wenn die CD existiert und 'If-None-Match' mit der
+     * aktuellen Version der CD übereinstimmt.
+     * Statuscode 200 wenn die CD existiert und If-None-Match nicht gesetzt
+     * wurde oder eine veraltete Version enthält.
+     * Statuscode 404 wenn keine CD zur ID gefunden wird.
      *
      * @param id Pfad-Parameter `id`
      * @param req Request-Objekt von Express mit Pfadparameter, Query-String,
@@ -144,7 +142,7 @@ export class CDGetController {
      */
     // eslint-disable-next-line max-params
     @Get(':id')
-    @ApiOperation({ summary: 'Suche mit der Cd-ID' })
+    @ApiOperation({ summary: 'Suche mit der CD-ID' })
     @ApiParam({
         name: 'id',
         description: 'Z.B. 19',
@@ -154,11 +152,11 @@ export class CDGetController {
         description: 'Header für bedingte GET-Requests, z.B. "0"',
         required: false,
     })
-    @ApiOkResponse({ description: 'Die gesuchte Cd wurde gefunden' })
-    @ApiNotFoundResponse({ description: 'Keine Cd mit dieser ID gefunden' })
+    @ApiOkResponse({ description: 'Die gesuchte CD wurde gefunden' })
+    @ApiNotFoundResponse({ description: 'Keine CD mit dieser ID gefunden' })
     @ApiResponse({
         status: HttpStatus.NOT_MODIFIED,
-        description: 'Die Cd wurde bereits heruntergeladen',
+        description: 'Die CD wurde bereits heruntergeladen',
     })
     async getById(
         @Param('id') idStr: string,
@@ -200,14 +198,12 @@ export class CDGetController {
     }
 
     /**
-     * Cds werden mit Suchkriterien gesucht. Die Suche wird dabei asynchron
-     * ausgeführt.
-     * Wenn mindestens eine Cd gefunden wird, wird der Statuscode 200 verwendet.
-     * Im Body des Response-Objektes sind alle gefundenen Cds aufgelistet.
-     * Sofern keine Suchkriterien eingegeben werden, werden alle vorhandenen
-     * Bücher zurückgegeben.
-     * Wenn keine Cd mit den Suchkriterien gefunden wird, dann wird der
-     * Statuscode 404 verwendet.
+     * Asynchrone Suche von CDs anhand von Suchkriterien.
+     * Wenn keine Suchkriterien angegeben wurden werden alle CDs
+     * zurueckgeliefert.
+     * Im Body des Response-Objektes sind alle gefundenen CDs aufgelistet.
+     * Statuscode 200 wenn midestens eine CD gefunden wurde.
+     * Statuscode 404 wenn keine CD gefunden wurde.
      *
      * @param query Query-Parameter von Express.
      * @param req Request-Objekt von Express.
@@ -216,7 +212,7 @@ export class CDGetController {
      */
     @Get()
     @ApiOperation({ summary: 'Suche mit Suchkriterien' })
-    @ApiOkResponse({ description: 'Eine möglicherweise leere Cd-Liste' })
+    @ApiOkResponse({ description: 'CD-Liste mit 0-n Objekten' })
     async get(
         @Query() query: CdQuery,
         @Req() req: Request,

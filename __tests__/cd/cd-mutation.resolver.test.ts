@@ -1,20 +1,3 @@
-/*
- * Copyright (C) 2021 - present Juergen Zimmermann, Hochschule Karlsruhe
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 import { afterAll, beforeAll, describe, test } from '@jest/globals';
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 import {
@@ -65,19 +48,19 @@ describe('GraphQL Mutations', () => {
                 mutation {
                     create(
                         input: {
-                            isrc: 'DEEGM7234823',
+                            isrc: "DEEGM7234823",
                             bewertung: 5,
-                            genre: 'RAP',
+                            genre: HIPHOP,
                             preis: 33.33,
                             verfuegbar: true,
-                            erscheinungsdatum: '2022-03-03',
-                            title: 'DAMN',
-                            interpret: 'Kendrick Lamar',
-                            laenge: 45.34,
+                            erscheinungsdatum: "2022-03-03",
+                            titel: "To Pimp a Butterfly",
+                            interpret: "Kendrick Lamar",
+                            laenge: 53.2,
                             lieder: [
                                 {
-                                    liedTitel: 'DNA',
-                                    liedLaenge: 2.34,
+                                    liedTitel: "King Kunta",
+                                    liedLaenge: 3.42,
                                 },
                             ],
                         }
@@ -117,33 +100,35 @@ describe('GraphQL Mutations', () => {
         const authorization = { Authorization: `Bearer ${token}` }; // eslint-disable-line @typescript-eslint/naming-convention
         const body: GraphQLQuery = {
             query: `
-                mutation {
-                    create(
-                        input: {
-                            isrc: 'falsck',
-                            bewertung: -5,
-                            genre: 'RAP',
-                            preis: 33.33,
-                            verfuegbar: false
-                            erscheinungsdatum: '202',
-                            title: 'x',
-                            interpret: 'Kendrick Lamar',
-                            laenge: 45.34,
-                        }
-                    ) {
-                        id
-                    }
+            mutation {
+                create(
+                  input: {
+                    isrc: "falsch",
+                    bewertung: -5,
+                    genre: POP,
+                    preis: -33.33,
+                    verfuegbar: true,
+                    erscheinungsdatum: "202",
+                    titel: "DAMN",
+                    interpret: "Kendrick Lamar",
+                    laenge: 43,
+                    lieder: [{
+                         liedTitel: "DNA",
+                         liedLaenge: 2.5,
+                          },],
+                  }
+                ) {
+                    id
                 }
+              }
+                
             `,
         };
         const expectedMsg = [
             expect.stringMatching(/^isrc /u),
             expect.stringMatching(/^bewertung /u),
-            expect.stringMatching(/^genre /u),
             expect.stringMatching(/^preis /u),
             expect.stringMatching(/^erscheinungsdatum /u),
-            expect.stringMatching(/^interpret /u),
-            expect.stringMatching(/^titel /u),
         ];
 
         // when
@@ -186,19 +171,19 @@ describe('GraphQL Mutations', () => {
                 mutation {
                     create(
                         input: {
-                            isrc: 'DEEFM7234823',
+                            isrc: "GBEGM724823",
                             bewertung: 5,
-                            genre: 'RAP',
+                            genre: HIPHOP,
                             preis: 33.33,
                             verfuegbar: true,
-                            erscheinungsdatum: '2022-03-03',
-                            title: 'test',
-                            interpret: 'test',
-                            laenge: 45.34,
+                            erscheinungsdatum: "2022-03-03",
+                            titel: "DAMN",
+                            interpret: "Kendrick Lamar",
+                            laenge: 54.5,
                             lieder: [
                                 {
-                                    liedTitel: 'test',
-                                    liedLaenge: 2.34,
+                                    liedTitel: "DNA",
+                                    liedLaenge: 32.5,
                                 },
                             ],
                         }

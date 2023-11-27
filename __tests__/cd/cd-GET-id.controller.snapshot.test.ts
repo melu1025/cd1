@@ -1,35 +1,3 @@
-/*
- * Copyright (C) 2016 - present Juergen Zimmermann, Hochschule Karlsruhe
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
-// axios: https://github.com/axios/axios
-//  - wird von @nestjs/terminus verwendet
-//  - einfacher als das "fetch API", das ab Node 17.5.0 verfuegbar ist
-//    https://github.com/nodejs/node/pull/41749
-
-// Alternativen zu axios:
-// https://github.com/request/request/issues/3143
-// https://blog.bitsrc.io/comparing-http-request-libraries-for-2019-7bedb1089c83
-//    got         https://github.com/sindresorhus/got
-//    node-fetch  https://github.com/node-fetch/node-fetch
-//                https://fetch.spec.whatwg.org
-//                https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-//    needle      https://github.com/tomas/needle
-//    ky          https://github.com/sindresorhus/ky
-
 import { afterAll, beforeAll, describe, expect, test } from '@jest/globals';
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 import {

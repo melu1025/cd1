@@ -30,7 +30,7 @@ export interface UpdateParams {
 
 /**
  * Die Klasse `CDWriteService` implementiert den Anwendungskern für das
- * Schreiben von Bücher und greift mit _TypeORM_ auf die DB zu.
+ * Schreiben von CDs und greift mit _TypeORM_ auf die DB zu.
  */
 @Injectable()
 export class CDWriteService {
@@ -56,9 +56,9 @@ export class CDWriteService {
 
     /**
      * Ein neues CD soll angelegt werden.
-     * @param cd Die neu anzulegende CD
-     * @returns Die ID der neu angelegten CDes
-     * @throws IsrcExists falls die ISRC-Nummer bereits existiert
+     * @param cd Die neu anzulegende CD.
+     * @returns Die ID der neu angelegten CDs.
+     * @throws IsrcExists falls die ISRC-Nummer bereits existiert.
      */
     async create(cd: CD): Promise<number> {
         this.#logger.debug('create: cd=%o', cd);
@@ -73,13 +73,13 @@ export class CDWriteService {
     }
 
     /**
-     * Eine vorhandenesCD soll aktualisiert werden.
-     * @param cd Die zu aktualisierende CD
-     * @param id ID der zu aktualisierenden CD
-     * @param version Die Versionsnummer für optimistische Synchronisation
-     * @returns Die neue Versionsnummer gemäß optimistischer Synchronisation
-     * @throws VersionInvalidException falls die Versionsnummer ungültig ist
-     * @throws VersionOutdatedException falls die Versionsnummer veraltet ist
+     * Eine vorhandene CD soll aktualisiert werden.
+     * @param cd Die zu aktualisierende CD.
+     * @param id ID der zu aktualisierenden CD.
+     * @param version Die Versionsnummer für optimistische Synchronisation.
+     * @returns Die neue Versionsnummer gemäß optimistischer Synchronisation.
+     * @throws VersionInvalidException falls die Versionsnummer ungültig ist.
+     * @throws VersionOutdatedException falls die Versionsnummer veraltet ist.
      */
     // https://2ality.com/2015/01/es6-destructuring.html#simulating-named-parameters-in-javascript
     async update({ id, cd, version }: UpdateParams): Promise<number> {

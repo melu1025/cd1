@@ -28,7 +28,7 @@ export interface Suchkriterien {
 }
 
 /**
- * Die Klasse `CDReadService` implementiert das Lesen für Cds und greift
+ * Die Klasse `CDReadService` implementiert das Lesen für CDs und greift
  * mit _TypeORM_ auf eine relationale DB zu.
  */
 @Injectable()

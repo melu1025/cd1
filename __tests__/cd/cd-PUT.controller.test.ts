@@ -1,20 +1,3 @@
-/*
- * Copyright (C) 2016 - present Juergen Zimmermann, Hochschule Karlsruhe
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 import { afterAll, beforeAll, describe, test } from '@jest/globals';
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 import {
@@ -35,13 +18,13 @@ import { loginRest } from '../login.js';
 const geaenderteCD: CDDtoOhneRef = {
     isrc: 'DEBGM7234823',
     bewertung: 5,
-    genre: 'RAP',
-    preis: 3333,
+    genre: 'HIPHOP',
+    preis: 34.6,
     verfuegbar: true,
     erscheinungsdatum: '2022-03-03',
-    title: 'DAMN',
+    titel: 'DAMN',
     interpret: 'Kendrick Lamar',
-    laenge: 5.34,
+    laenge: 12,
 };
 const idVorhanden = '30';
 
@@ -52,34 +35,33 @@ const geaenderteCDIdNichtVorhanden: CDDtoOhneRef = {
     preis: 34,
     verfuegbar: true,
     erscheinungsdatum: '2014-08-03',
-    title: '+',
+    titel: 'blue',
     interpret: 'Ed Sheeran',
-    laenge: 25.34,
+    laenge: 43,
 };
 const idNichtVorhanden = '999999';
 
 const geaenderteCDInvalid: Record<string, unknown> = {
-    isrc: 'USDNM1234876',
-    bewertung: 5,
+    isrc: 'USDN123M1234876',
+    bewertung: -2,
     genre: 'RAP',
-    preis: 12,
-    verfuegbar: true,
-    erscheinungsdatum: '2000-03-03',
-    title: 'Blueprint',
-    interpret: 'JAY Z',
-    laenge: 78.24,
+    preis: -5,
+    verfuegbar: '2',
+    erscheinungsdatum: '423',
+    laenge: -6,
+    titel: undefined,
 };
 
 const veralteteCD: CDDtoOhneRef = {
     isrc: 'USGGN5437239',
     bewertung: 5,
-    genre: 'RAP',
+    genre: 'HIPHOP',
     preis: 41,
     verfuegbar: true,
     erscheinungsdatum: '2000-06-23',
-    title: 'OMEGA',
+    titel: 'OMEGA',
     interpret: 'Heino',
-    laenge: 24.62,
+    laenge: 32.9,
 };
 
 // -----------------------------------------------------------------------------
@@ -163,8 +145,7 @@ describe('PUT /rest/:id', () => {
             expect.stringMatching(/^preis /u),
             expect.stringMatching(/^laenge /u),
             expect.stringMatching(/^erscheinungsdatum /u),
-            expect.stringMatching(/^interpret /u),
-            expect.stringMatching(/^titel /u),
+            expect.stringMatching(/^verfuegbar /u),
         ];
 
         // when

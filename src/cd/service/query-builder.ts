@@ -10,6 +10,7 @@ import { Lied } from '../entity/lied.entity.js';
 import { Repository } from 'typeorm';
 import { type Suchkriterien } from './cd-read.service.js';
 import { getLogger } from '../../logger/logger.js';
+import { typeOrmModuleOptions } from '../../config/db.js';
 
 /** Typdefinitionen für die Suche mit der CD-ID. */
 export interface BuildIdParams {
@@ -60,7 +61,7 @@ export class QueryBuilder {
      * @param suchkriterien JSON-Objekt mit Suchkriterien
      * @returns QueryBuilder
      */
-    build({ ...props }: Suchkriterien) {
+    build({ titel, ...props }: Suchkriterien) {
         this.#logger.debug('build: props=%o', props);
 
         let queryBuilder = this.#repo.createQueryBuilder(this.#cdAlias);
@@ -71,6 +72,16 @@ export class QueryBuilder {
         // const { titel, javascript, typescript, ...props } = suchkriterien;
 
         let useWhere = true;
+
+        if (titel !== undefined && typeof titel === 'string') {
+            const ilike =
+                typeOrmModuleOptions.type === 'postgres' ? 'ilike' : 'like';
+            queryBuilder = queryBuilder.where(
+                `${this.#cdAlias}.titel ${ilike} :titel`,
+                { titel: `%${titel}%` },
+            );
+            useWhere = false;
+        }
 
         // Restliche Properties als Key-Value-Paare: Vergleiche auf Gleichheit
         Object.keys(props).forEach((key) => {

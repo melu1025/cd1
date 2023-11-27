@@ -1,26 +1,3 @@
-/*
- * Copyright (C) 2021 - present Juergen Zimmermann, Hochschule Karlsruhe
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
-// https://github.com/tc39/proposal-type-annotations
-// NICHT: Enum, Parameter Properties, Namespace
-// https://devblogs.microsoft.com/typescript/a-proposal-for-type-syntax-in-javascript
-
-// Modul (in JS) = Datei
-// Pfad innerhalb von Packages in node_modules ("nicht-relative Imports")
 import {
     DocumentBuilder,
     type SwaggerCustomOptions,
@@ -78,14 +55,3 @@ const bootstrap = async () => {
 
 // Top-level await ab ES 2020
 await bootstrap();
-
-// IIFE  = Immediately Invoked Function Expression
-// IIAFE = Immediately Invoked Asynchronous Function Expression
-// (async () => {
-//     await bootstrap(); // ab ES 2017
-// })();
-
-// Promise mit then() ab ES 2015
-// bootstrap()
-//     .then(() => console.log(`Server gestartet auf Port ${port}`)) // eslint-disable-line security-node/detect-crlf
-//     .catch((err) => console.error('Fehler bei bootstrap():', err));

@@ -1,18 +1,3 @@
--- Copyright (C) 2022 - present Juergen Zimmermann, Hochschule Karlsruhe
---
--- This program is free software: you can redistribute it and/or modify
--- it under the terms of the GNU General Public License as published by
--- the Free Software Foundation, either version 3 of the License, or
--- (at your option) any later version.
---
--- This program is distributed in the hope that it will be useful,
--- but WITHOUT ANY WARRANTY; without even the implied warranty of
--- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
--- GNU General Public License for more details.
---
--- You should have received a copy of the GNU General Public License
--- along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 -- docker compose exec postgres bash
 -- psql --dbname=cd --username=cd --file=/scripts/create-table-cd.sql
 
@@ -53,8 +38,8 @@ CREATE TABLE IF NOT EXISTS cd (
                   -- https://www.postgresql.org/docs/current/datatype-datetime.html
     erscheinungsdatum         date,
     interpret     varchar(40),
-    titel         varchar(40),
-    laenge        integer,
+    titel         varchar(40) NOT NULL,
+    laenge        decimal(8,2),
     erzeugt       timestamp NOT NULL DEFAULT NOW(),
     aktualisiert  timestamp NOT NULL DEFAULT NOW()
 ) TABLESPACE cdspace;
@@ -63,7 +48,7 @@ CREATE TABLE IF NOT EXISTS cd (
 CREATE TABLE IF NOT EXISTS lied (
     id              integer GENERATED ALWAYS AS IDENTITY(START WITH 1000) PRIMARY KEY USING INDEX TABLESPACE cdspace,
     lied_titel           varchar(32) NOT NULL,
-    lied_laenge          integer NOT NULL,
+    lied_laenge          decimal(8,2) NOT NULL,
     cd_id           integer NOT NULL REFERENCES cd
 ) TABLESPACE cdspace;
 CREATE INDEX IF NOT EXISTS lied_cd_id_idx ON lied(cd_id) TABLESPACE cdspace;

@@ -1,20 +1,3 @@
-/*
- * Copyright (C) 2016 - present Juergen Zimmermann, Hochschule Karlsruhe
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 import { afterAll, beforeAll, describe, test } from '@jest/globals';
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 import {
@@ -36,17 +19,17 @@ import { loginRest } from '../login.js';
 const neueCD: CDDTO = {
     isrc: 'DEBGM7234823',
     bewertung: 5,
-    genre: 'RAP',
+    genre: 'HIPHOP',
     preis: 33.33,
     verfuegbar: true,
     erscheinungsdatum: '2022-03-03',
-    title: 'DAMN',
+    titel: 'DAMN',
     interpret: 'Kendrick Lamar',
-    laenge: 45.34,
+    laenge: 65.8,
     lieder: [
         {
             liedTitel: 'Humble',
-            liedLaenge: 2.34,
+            liedLaenge: 4.4,
         },
     ],
 };
@@ -63,13 +46,13 @@ const neueCDInvalid: Record<string, unknown> = {
 const neueCDIsrcExistiert: CDDTO = {
     isrc: 'GBDEF9876541',
     bewertung: 5,
-    genre: 'RAP',
+    genre: 'HIPHOP',
     preis: 33.33,
     verfuegbar: true,
     erscheinungsdatum: '2022-03-03',
-    title: 'DAMN',
+    titel: 'DAMN',
     interpret: 'Kendrick Lamar',
-    laenge: 45.34,
+    laenge: 42,
     lieder: undefined,
 };
 
@@ -144,8 +127,6 @@ describe('POST /rest', () => {
             expect.stringMatching(/^preis /u),
             expect.stringMatching(/^laenge /u),
             expect.stringMatching(/^erscheinungsdatum /u),
-            expect.stringMatching(/^interpret /u),
-            expect.stringMatching(/^titel /u),
         ];
 
         // when

@@ -1,20 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-extra-non-null-assertion */
-/*
- * Copyright (C) 2021 - present Juergen Zimmermann, Hochschule Karlsruhe
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
 
 import { afterAll, beforeAll, describe, expect, test } from '@jest/globals';
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
@@ -43,9 +27,9 @@ type CDDTO = Omit<CD, 'lieder' | 'aktualisiert' | 'erzeugt'>;
 // -----------------------------------------------------------------------------
 const idVorhanden = '1';
 
-const titelVorhanden = 'Stadtaffe';
+const titelVorhanden = 'Stadtsaffe';
 
-const teilTitelVorhanden = 'a';
+const teilTitelVorhanden = 'st';
 
 const teilTitelNichtVorhanden = '8';
 
@@ -97,7 +81,8 @@ describe('GraphQL Queries', () => {
         const { status, headers, data } = response;
 
         expect(status).toBe(HttpStatus.OK);
-        expect(headers['content-type']).toMatch(/json/iu); // eslint-disable-line sonarjs/no-duplicate-string
+        // eslint-disable-next-line sonarjs/no-duplicate-string
+        expect(headers['content-type']).toMatch(/json/iu);
         expect(data.errors).toBeUndefined();
         expect(data.data).toBeDefined();
 
@@ -155,7 +140,7 @@ describe('GraphQL Queries', () => {
             query: `
                 {
                     cds(titel: "${titelVorhanden}") {
-                        art
+                        genre
                         titel 
                     }
                 }
@@ -217,12 +202,12 @@ describe('GraphQL Queries', () => {
         expect(data.errors).toBeUndefined();
         expect(data.data).toBeDefined();
 
-        const { buecher } = data.data!;
+        const { cds } = data.data!;
 
-        expect(buecher).not.toHaveLength(0);
+        expect(cds).not.toHaveLength(0);
 
-        const buecherArray: CDDTO[] = buecher;
-        buecherArray
+        const cdArray: CDDTO[] = cds;
+        cdArray
             .map((cd) => cd.titel)
             .forEach((titel) =>
                 expect(titel.toLowerCase()).toEqual(
@@ -255,7 +240,7 @@ describe('GraphQL Queries', () => {
 
         expect(status).toBe(HttpStatus.OK);
         expect(headers['content-type']).toMatch(/json/iu);
-        expect(data.data!.buecher).toBeNull();
+        expect(data.data!.cds).toBeNull();
 
         const { errors } = data;
 
@@ -264,7 +249,7 @@ describe('GraphQL Queries', () => {
         const [error] = errors!;
         const { message, path, extensions } = error;
 
-        expect(message).toMatch(/^Keine Cds gefunden:/u);
+        expect(message).toMatch(/^Keine Cds gefunden:/iu);
         expect(path).toBeDefined();
         expect(path!![0]).toBe('cds');
         expect(extensions).toBeDefined();

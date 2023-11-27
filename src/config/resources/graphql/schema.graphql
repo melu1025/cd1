@@ -56,11 +56,11 @@ type CD {
   preis: Float!
   verfuegbar: Boolean
   erscheinungsdatum: String
-  titel: String
+  titel: String!
   interpret: String
 }
 
-"Enum-Typ für die Art eines CDes"
+"Enum-Typ für die Art einer CD"
 enum Art {
   HIPHOP
   POP
@@ -69,14 +69,14 @@ enum Art {
 "Daten zu den Abbildungen eines CDes"
 input LiedInput {
   liedTitel: String!
-  liedLaenge: String!
+  liedLaenge: Float!
 }
 
 "Daten für ein neues CD"
 input CDInput {
   isrc: String
   bewertung: Int
-  titel: String
+  titel: String!
   genre: Art
   preis: Float
   verfuegbar: Boolean

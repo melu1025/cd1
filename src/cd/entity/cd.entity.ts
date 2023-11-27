@@ -20,10 +20,10 @@ import { dbType } from '../../config/dbtype.js';
 /**
  * Alias-Typ für gültige Strings des Genres einer CD.
  */
-export type CDGenre = 'RAP' | 'POP';
+export type CDGenre = 'HIPHOP' | 'POP';
 
 /**
- * Entity-Klasse zu einem relationalen Tabelle
+ * Entity-Klasse zu relationalen Tablelle CD
  */
 // https://typeorm.io/entities
 @Entity()
@@ -36,11 +36,11 @@ export class CD {
     readonly version: number | undefined;
 
     @Column('varchar', { unique: true, length: 16 })
-    @ApiProperty({ example: '0-0070-0644-6', type: String })
+    @ApiProperty({ example: 'DEGBR4211234', type: String })
     readonly isrc!: string;
 
     @Column('int')
-    @ApiProperty({ example: 5, type: Number })
+    @ApiProperty({ example: 1, type: Number })
     readonly bewertung: number | undefined;
 
     @Column('date')
@@ -59,7 +59,12 @@ export class CD {
     @ApiProperty({ example: 1, type: Number })
     readonly preis!: number;
 
-    @Column('int')
+    @Column('decimal', {
+        precision: 8,
+        scale: 2,
+        transformer: new DecimalTransformer(),
+    })
+    @ApiProperty({ example: 23.2, type: Number })
     readonly laenge: number | undefined;
 
     @Column('boolean')

@@ -47,13 +47,13 @@ export const MAX_RATING = 5;
 export class CDDtoOhneRef {
     // https://www.oreilly.com/library/view/regular-expressions-cookbook/9781449327453/ch04s13.html
     @IsISRC()
-    @ApiProperty({ example: '978-0-007-00644-1', type: String })
+    @ApiProperty({ example: 'DEABC12345678', type: String })
     readonly isrc!: string;
 
     @IsInt()
     @Min(0)
     @Max(MAX_RATING)
-    @ApiProperty({ example: 5, type: Number })
+    @ApiProperty({ example: 2, type: Number })
     readonly bewertung: number | undefined;
 
     @Matches(/^POP$|^HIPHOP$/u)
@@ -67,7 +67,7 @@ export class CDDtoOhneRef {
     readonly preis!: number;
 
     @Min(0.01)
-    @Max(12)
+    @Max(120)
     @IsOptional()
     @ApiProperty({ example: 2.1, type: Number })
     readonly laenge: number | undefined;
@@ -78,20 +78,20 @@ export class CDDtoOhneRef {
 
     @IsISO8601({ strict: true })
     @IsOptional()
-    @ApiProperty({ example: '2022-09-31' })
+    @ApiProperty({ example: '2000-05-31' })
     readonly erscheinungsdatum: Date | string | undefined;
 
     @IsOptional()
-    @ApiProperty({ example: 'ABBY Road', type: String })
-    readonly title!: string;
+    @ApiProperty({ example: 'Abby Road', type: String })
+    readonly titel!: string;
 
     @IsOptional()
-    @ApiProperty({ example: 'Ken Carson', type: String })
+    @ApiProperty({ example: 'Michael Jackson', type: String })
     readonly interpret: string | undefined;
 }
 
 /**
- * Entity-Klasse für Bücher ohne TypeORM.
+ * Entity-Klasse für CDs ohne TypeORM.
  */
 export class CDDTO extends CDDtoOhneRef {
     @IsOptional()
