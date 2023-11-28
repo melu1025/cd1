@@ -15,6 +15,5 @@
 
 -- https://dev.mysql.com/doc/refman/8.1/en/drop-table.html
 
-DROP TABLE IF EXISTS abbildung;
-DROP TABLE IF EXISTS titel;
-DROP TABLE IF EXISTS buch;
+DROP TABLE IF EXISTS lied;
+DROP TABLE IF EXISTS cd;

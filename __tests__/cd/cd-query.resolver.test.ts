@@ -27,7 +27,7 @@ type CDDTO = Omit<CD, 'lieder' | 'aktualisiert' | 'erzeugt'>;
 // -----------------------------------------------------------------------------
 const idVorhanden = '1';
 
-const titelVorhanden = 'Stadtsaffe';
+const titelVorhanden = 'Stadtaffe';
 
 const teilTitelVorhanden = 'st';
 

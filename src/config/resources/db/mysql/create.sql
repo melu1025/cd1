@@ -25,37 +25,29 @@
 -- https://dev.mysql.com/blog-archive/mysql-8-0-16-introducing-check-constraint
 -- UNIQUE: impliziter Index als B+ Baum
 
-CREATE TABLE IF NOT EXISTS buch (
-    id            INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    version       INT NOT NULL DEFAULT 0,
-    isbn          CHAR(17) UNIQUE NOT NULL,
-    rating        INT NOT NULL CHECK (rating >= 0 AND rating <= 5),
-    art           ENUM('DRUCKAUSGABE', 'KINDLE'),
-    preis         DECIMAL(8,2) NOT NULL,
-    rabatt        DECIMAL(4,3) NOT NULL,
-    lieferbar     BOOLEAN NOT NULL DEFAULT FALSE,
-    datum         DATE,
-    homepage      VARCHAR(40),
-    schlagwoerter VARCHAR(64),
-    erzeugt       DATETIME NOT NULL DEFAULT (CURRENT_TIMESTAMP),
-    aktualisiert  DATETIME NOT NULL DEFAULT (CURRENT_TIMESTAMP)
-) TABLESPACE buchspace ROW_FORMAT=COMPACT;
-ALTER TABLE buch AUTO_INCREMENT=1000;
+CREATE TABLE IF NOT EXISTS cd (
+    id                INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    version           INT NOT NULL DEFAULT 0,
+    isrc              CHAR(17) UNIQUE NOT NULL,
+    bewertung         INT NOT NULL CHECK (bewertung >= 0 AND bewertung <= 5),
+    genre             ENUM('HIPHOP', 'POP'),
+    preis             DECIMAL(8,2) NOT NULL,
+    verfuegbar        BOOLEAN NOT NULL DEFAULT FALSE,
+    erscheinungsdatum DATE,
+    interpret         VARCHAR(64),
+    titel             VARCHAR(40),
+    laenge            DECIMAL(8,2) NOT NULL,
+    erzeugt           DATETIME NOT NULL DEFAULT (CURRENT_TIMESTAMP),
+    aktualisiert      DATETIME NOT NULL DEFAULT (CURRENT_TIMESTAMP)
+) TABLESPACE cdspace ROW_FORMAT=COMPACT;
+ALTER TABLE cd AUTO_INCREMENT=1000;
 
-CREATE TABLE IF NOT EXISTS titel (
-    id          INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    titel       VARCHAR(40) NOT NULL,
-    untertitel  VARCHAR(40),
-    buch_id     CHAR(36) UNIQUE NOT NULL references buch(id)
-) TABLESPACE buchspace ROW_FORMAT=COMPACT;
-ALTER TABLE titel AUTO_INCREMENT=1000;
-
-CREATE TABLE IF NOT EXISTS abbildung (
+CREATE TABLE IF NOT EXISTS lied (
     id              INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    beschriftung    VARCHAR(32) NOT NULL,
-    content_type    VARCHAR(16) NOT NULL,
-    buch_id         CHAR(36) NOT NULL references buch(id),
+    liedTitel       VARCHAR(32) NOT NULL,
+    liedLaenge      VARCHAR(16) NOT NULL,
+    cd_id           CHAR(36) NOT NULL references cd(id),
 
-    INDEX abbildung_buch_id_idx(buch_id)
-) TABLESPACE buchspace ROW_FORMAT=COMPACT;
-ALTER TABLE abbildung AUTO_INCREMENT=1000;
+    INDEX lied_cd_id_idx(cd_id)
+) TABLESPACE cdspace ROW_FORMAT=COMPACT;
+ALTER TABLE lied AUTO_INCREMENT=1000;
